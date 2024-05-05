@@ -1,48 +1,48 @@
 import tkinter as tk
 import random
+from circle import make_circle
 
-# Points array
 points = []
 
-# Create a tkinter window
 window = tk.Tk()
 width= window.winfo_screenwidth() 
 height= window.winfo_screenheight()
-# Setting tkinter window size
 window.geometry("%dx%d" % (width, height))
 window.title("Smallest circle problem")
 
-# Create a canvas widget
-canvas = tk.Canvas(window, width=1920, height=1080)
+canvas = tk.Canvas(window, width=width, height=height)
 
-# Function to add a point to the canvas
 def add_point():
     for i in range(int(points_entry.get())):
-        x = random.randint(320, 1920-320)
-        y = random.randint(180, 1080-180)
-        canvas.create_oval(x-5, y-5, x+5, y+5, fill='black')
+        x = random.randint(width*0.25, width*0.75)
+        y = random.randint(height*0.25, height*0.75)
+        canvas.create_oval(x-5, y-5, x+5, y+5, fill='red')
         points.append((x, y))
 
-# Function to clear the canvas
 def clear_canvas():
+    points.clear()
     canvas.delete('all')
 
-# Create a label and entry for number 
+def draw_circle():
+    if (len(points) != 0):
+        circle_x, circle_y, circle_radius = make_circle(points)
+        canvas.create_oval(circle_x-circle_radius, circle_y-circle_radius, circle_x+circle_radius, circle_y+circle_radius, outline='blue', width=5)
+
 points_label = tk.Label(window, text="Number of points:")
-points_label.pack()
+points_label.pack(anchor='w')
+
 points_entry = tk.Entry(window)
-points_entry.pack()
+points_entry.pack(anchor='w')
 
-# Create a button to add a point
 add_button = tk.Button(window, text="Add Point", command=add_point)
-add_button.pack()
+add_button.pack(anchor='w')
 
-# Create a button to clear the canvas
 clear_button = tk.Button(window, text="Clear Canvas", command=clear_canvas)
-clear_button.pack()
+clear_button.pack(anchor='w')
 
-# Pack the canvas widget
+circle_button = tk.Button(window, text="Draw circle", command=draw_circle)
+circle_button.pack(anchor='w')
+
 canvas.pack()
 
-# Start the tkinter event loop
 window.mainloop()
