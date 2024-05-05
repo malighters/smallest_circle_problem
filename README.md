@@ -15,6 +15,10 @@ sudo apt-get install python3-tk
 
 ## Usage
 1. Run the `main.py` script using Python.
+``` bash
+python3 main.py 
+```
+
 2. Enter the number of points you want to generate in the input field labeled "Number of points."
 3. Click on the "Add Point" button to randomly generate the specified number of points on the canvas.
 4. Once points are added, click on the "Draw circle" button to compute and draw the smallest circle enclosing all the points.
